@@ -4,7 +4,7 @@ services:
         node-jenkins-app-example:
           restart: always
           ports:
-                - 3000:3000
+                - 2000:2000
           build: .
           container_name: node-jenkins-app-example
 

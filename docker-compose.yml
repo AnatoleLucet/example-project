@@ -1,0 +1,10 @@
+version: "3.7"
+
+services:
+        node-jenkins-app-example:
+          restart: always
+          ports:
+                - 3000:3000
+          build: .
+          container_name: node-jenkins-app-example
+

@@ -4,16 +4,20 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "jasmine-node spec"
+    "test": "jasmine-node spec",
+    "ibazel": "ibazel"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@bazel/ibazel": "^0.10.3",
+    "@bazel/typescript": "^0.41.0",
+    "@types/express": "^4.17.2",
     "express": "^4.16.3",
-    "request": "^2.85.0"
+    "request": "^2.85.0",
+    "typescript": "^3.7.2"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5"
   }
 }
-

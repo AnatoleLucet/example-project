@@ -1,0 +1,17 @@
+load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+
+ts_library(
+    name = "src",
+    srcs = glob(["*.ts"]),
+    deps = [
+      "@npm//@types/express"
+    ]
+)
+
+nodejs_binary(
+    name = "src_binary",
+    data = [":src"],
+    entry_point = ":index.ts",
+    node_modules = "@npm//:node_modules"
+)

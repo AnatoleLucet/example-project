@@ -1,11 +1,12 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
+load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
 
 ts_library(
     name = "src",
     srcs = glob(["*.ts"]),
     deps = [
-      "@npm//@types/express"
+	"@npm//:node_modules"
     ]
 )
 
@@ -14,4 +15,10 @@ nodejs_binary(
     data = [":src"],
     entry_point = ":index.ts",
     node_modules = "@npm//:node_modules"
+)
+
+jasmine_node_test(
+    name = "test",
+    srcs = [":src"],
+    tags = ["--config=//:jasmine.json", "--verbose"]
 )

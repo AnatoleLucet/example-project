@@ -1,9 +1,10 @@
 import * as express from "express";
+import helloWorld from "./helloWorld";
 
 const app = express();
 
-app.get("/*", (_, res) => res.send("Hello World!"));
+app.use("/", helloWorld);
 
-var server = app.listen(2000, () => {
+app.listen(2000, () => {
   console.log("App launched on port 2000");
 });

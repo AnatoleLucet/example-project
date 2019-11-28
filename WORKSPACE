@@ -40,8 +40,8 @@ load("@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
 
 docker_toolchain_configure(
   name = "docker_config",
-  # add a config.json in .docker for auth
-  client_config="//:.docker",
+  # add a config.json in ~/.docker for auth
+  client_config="~/.docker",
 )
 
 load(

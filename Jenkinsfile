@@ -30,7 +30,7 @@ pipeline {
 				        docker pull anatolelucet/example-project
 					docker stop example-project || true
 					docker rm example-project || true
-					docker run --name example-project -p 2000:2000 anatolelucet/example-project
+					docker run -d --name example-project -p 2000:2000 anatolelucet/example-project
 				    ''',
 				    execTimeout: 120000,
 				    flatten: false,

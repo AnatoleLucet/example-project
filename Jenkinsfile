@@ -16,5 +16,40 @@ pipeline {
                 sh 'bazel run //src:push'
             }
         }
+	stage('Deploy') {
+            steps {
+                sshPublisher(
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'root@193.70.43.121',
+                            transfers: [
+                                sshTransfer(
+                                    cleanRemote: false,
+				    excludes: '',
+				    execCommand: '''
+				        docker pull anatolelucet/example-project
+					docker stop example-project || true
+					docker rm example-project || true
+					docker run --name example-project -p 2000:2000 anatolelucet/example-project
+				    ''',
+				    execTimeout: 120000,
+				    flatten: false,
+				    makeEmptyDirs: false,
+				    noDefaultExcludes: false,
+				    patternSeparator: '[, ]+',
+				    remoteDirectory: '',
+				    remoteDirectorySDF: false,
+				    removePrefix: '',
+				    sourceFiles: ''
+				)
+			    ],
+			    usePromotionTimestamp: false,
+			    useWorkspaceInPromotion: false,
+			    verbose: false
+			)
+		    ]
+		)
+	    }
+	}
     }
 }

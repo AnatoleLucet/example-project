@@ -1,6 +1,8 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:defs.bzl", "nodejs_binary")
 load("@npm_bazel_jasmine//:index.bzl", "jasmine_node_test")
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 
 ts_library(
     name = "src",
@@ -21,4 +23,19 @@ jasmine_node_test(
     name = "test",
     srcs = [":src"],
     tags = ["--config=//:jasmine.json", "--verbose"]
+)
+
+nodejs_image(
+    name = "app_image",
+    entry_point = ":index.ts",
+    node_modules = "@npm//:node_modules",
+    data = [":src"],
+)
+
+container_push(
+   name = "push",
+   image = ":app_image",
+   format = "Docker",
+   registry = "index.docker.io",
+   repository = "anatolelucet/example-project",
 )
